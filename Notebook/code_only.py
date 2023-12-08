@@ -107,9 +107,32 @@ df.shape
 numerical_columns = df.select_dtypes(include=['int64']).columns
 
 # %%
-# Create histogram for each categorical column in DataFrame
-numerical_columns = df.select_dtypes(include=['int64']).columns
-df[numerical_columns].hist()
+# Adjusting the layout to place one plot beside the other
+fig, axs = plt.subplots(1, 2, figsize=(10, 4))
+
+# Plotting 'income' histogram and KDE in the first subplot
+sns.histplot(df["income"], kde=True, kde_kws=dict(cut=3), stat="density", color="blue", ax=axs[0])
+axs[0].set_title('Income Distribution')
+
+# Plotting 'age' histogram and KDE in the second subplot
+sns.histplot(df["age"], kde=True, kde_kws=dict(cut=3), stat="density", color="red", ax=axs[1])
+axs[1].set_title('Age Distribution')
+
+plt.tight_layout()
+plt.show()
+
+# %% [markdown]
+# Income Distribution (Blue Plot):
+# 
+# - The distribution of income appears to be right-skewed, suggesting that a larger number of individuals earn less, with fewer high earners.
+# - The peak of the density curve is on the lower end of the income scale, which indicates the mode of the income distribution is lower than the mean.
+# - There is a tail extending towards the higher income values, indicating the presence of individuals with significantly higher incomes than the average.
+# 
+# Age Distribution (Red Plot):
+# 
+# - The age distribution appears to be slightly left-skewed, indicating that there are more young people in the dataset and a smaller number of older individuals.
+# - The tallest bar is around the 35-40 age range, which may indicate the mode of the distribution is within this age bracket.
+# - The skewness is not as pronounced in the age distribution as it is in the income distribution, but it still suggests a younger demographic overall.
 
 # %%
 # Plot for 'gender' value counts
